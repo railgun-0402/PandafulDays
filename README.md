@@ -53,4 +53,4 @@ SNS等で情報共有してくれる若者<br />
 http://pandafuldays.xyz/
 
 ##作者
- 泰山恭輔
+ sd
