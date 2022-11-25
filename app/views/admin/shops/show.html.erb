@@ -1,0 +1,64 @@
+<div class ="container">
+  <div class ="row m-3">
+    <p class ="content1" >
+  	  <h2><%= @shop.shop_name %>の店舗詳細ページ</h2>
+    </p>
+  </div>
+  <div class ="row m-3">
+    <div class ="col-md-3">
+  	  <%= attachment_image_tag @shop, :main,size: "200x200" %><br><br>
+  	  <% @shop.shop_images.each do |image| %>
+  	    <%= attachment_image_tag image, :image,size: "200x200" %>
+  	  <% end %>
+    </div>
+
+    <div class ="col-md-9">
+      <table class ='table'>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">店名</th>
+   	      <td><%= @shop.shop_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">店紹介文</th>
+   	      <td><%= @shop.shop_profile %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">ジャンル</th>
+   	      <td><%= @shop.genre.genre_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">駅</th>
+   	      <td><%= @shop.station.station_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">住所</th>
+   	      <td><%= @shop.shop_address %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">営業時間</th>
+   	      <td><%= @shop.shop_time.strftime('%H:%M') %>~<%= @shop.finish_time.strftime('%H:%M') %></td>
+        </tr>
+        <tr>
+          <th scope="col" class="text-nowrap">休日</th>
+          <td><%= @shop.holiday %></td>
+        </tr>
+        <tr>
+   	      <th scope="col" class="text-nowrap">ホームページ</th>
+   	      <td><%= @shop.shop_homepage %></td>
+   	    </tr>
+       	<tr>
+   	      <th scope="col" class="text-nowrap">店ステータス</th>
+   	      <td>
+            <% if @shop.shop_quit %>
+   	 	        有効
+   	 	      <% else %>
+   	 	        無効
+   	 	      <% end %>
+   	      </td>
+   	    </tr>
+      </table>
+     <%= link_to "編集", edit_admin_shop_path(@shop.id),class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+

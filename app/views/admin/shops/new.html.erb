@@ -1,0 +1,58 @@
+<div class ="container">
+  <div class ="row m-3">
+    <h3>パン屋新規登録</h3>
+  </div>
+  <div class ="row m-3">
+    <table class ='table'>
+  	  <%= form_with(model: @shop_new,local: true, url:admin_shops_path) do |form| %>
+  	    <tr>
+          <th><%= form.label :メイン画像 %></th>
+  	      <td><%= form.attachment_field :main %></td>
+        </tr>
+   	    <tr>
+          <th><%= form.label :パン画像 %></th>
+   	      <td><%= form.attachment_field :shop_images_images, multiple: true %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :店名 %></th>
+          <td><%= form.text_field :shop_name,:size=>"40" %></td>
+        </tr>
+        <tr>
+   	      <th><%= form.label :店紹介文 %></th>
+   	      <th><%= form.text_area :shop_profile,:size=>"50x10" %></th>
+        </tr>
+        <tr>
+   	      <th><%= form.label :ジャンル %></th>
+   	      <td><%= form.collection_select(:genre_id,Genre.all, :id, :genre_name,include_blank: true) %></td>
+        </tr>
+        <tr>
+   	      <th><%= form.label :駅 %></th>
+   	      <td><%= form.collection_select(:station_id,Station.all, :id, :station_name,include_blank: true) %></td>
+        </tr>
+        <tr>
+   	      <th><%= form.label :住所 %></th>
+   	      <td><%= form.text_field :shop_address %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :営業時間 %></th>
+   	      <td><%= form.text_field :shop_time %>~<%= form.text_field :finish_time %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :休日 %></th>
+          <td><%= form.text_field :holiday %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :ホームページ %></th>
+          <td><%= form.text_field :shop_homepage,:size=>"40"  %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :店ステータス %></th>
+	        <td><%= form.select :shop_quit, [["有効", true], ["無効", false]] %></td>
+        </tr>
+        <tr>
+          <th><%= form.submit :新規登録,class: "btn btn-primary" %></th>
+        </tr>
+   	  <% end %>
+    </table>
+  </div>
+</div>

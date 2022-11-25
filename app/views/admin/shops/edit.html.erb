@@ -1,0 +1,68 @@
+<div class ="container">
+  <div class ="row m-3">
+    <p class ="content1" >
+      <h2><%= @shop.shop_name %>の店舗編集</h2>
+    </p>
+  </div>
+  <div class ="row m-3">
+    <div class ="col-md-3">
+      <%= attachment_image_tag @shop, :main, size: "200x200", format: "jpeg" %>
+      <% @shop.shop_images.each do |image| %>
+  	    <%= attachment_image_tag image, :image, size: "200x200", format: "jpeg" %>
+  	  <% end %>
+    </div>
+    <div class ="col-md-9">
+      <table class ='table'>
+        <%= form_with(model:@shop, url:admin_shop_path) do |form| %>
+   	      <tr>
+   	        <th><%= form.label :店名 %></th>
+   	        <td><%= form.text_field :shop_name %></td>
+   	      </tr>
+          <tr>
+            <th><%= form.label :店舗画像 %></th>
+            <td><%= form.attachment_field :main %></td>
+          </tr>
+          <tr>
+            <th><%= form.label :パン画像 %></th>
+            <td><%= form.attachment_field :shop_images_images, multiple: true %></td>
+          </tr>
+   	      <tr>
+   	        <th><%= form.label :店紹介文 %></th>
+   	        <td><%= form.text_area :shop_profile,:size=>"50x10" %></td>
+   	      </tr>
+   	      <tr>
+   	        <th><%= form.label :ジャンル %></th>
+   	        <td><%= form.collection_select(:genre_id,Genre.all, :id, :genre_name) %></td>
+   	      </tr>
+   	      <tr>
+   	        <th><%= form.label :駅 %></th>
+   	        <td><%= form.collection_select(:station_id,Station.all, :id, :station_name) %></td>
+   	      </tr>
+   	      <tr>
+   	        <th><%= form.label :住所 %></th>
+   	        <td><%= form.text_field :shop_address %></td>
+   	      </tr>
+   	      <tr>
+   	        <th><%= form.label :営業時間 %></th>
+   	        <td><%= form.text_field :shop_time, value: @shop.shop_time.strftime('%H:%M') %>~<%=form.text_field :finish_time, value: @shop.shop_time.strftime('%H:%M') %></td>
+   	      </tr>
+          <tr>
+            <th><%= form.label :休日 %></th>
+            <td><%= form.text_field :holiday %></td>
+          </tr>
+   	      <tr>
+   	        <th><%= form.label :ホームページ %></th>
+   	        <td><%= form.text_field :shop_homepage,:size=>"40" %></td>
+   	      </tr>
+   	      <tr>
+   	        <th><%= form.label :店ステータス %></th>
+	          <td><%= form.select :shop_quit, [["有効", true], ["無効", false]] %></td>
+	        </tr>
+	        <tr>
+	          <th><%= form.submit :変更を保存する,class: "btn btn-primary"  %></th>
+	        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

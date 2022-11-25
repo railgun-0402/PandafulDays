@@ -1,0 +1,38 @@
+<div class ="container">
+  <div class ="row">
+    <table class ='table'>
+   	  <tr>
+   	    <th>ID</th>
+   	    <td><%= @recommend.id %></td>
+   	  </tr>
+      <tr>
+        <th>画像</th>
+        <td><%= attachment_image_tag @recommend, :recommend_image, :fill, 150, 150 %></td>
+      <tr>
+   	  <tr>
+   	    <th>店名</th>
+   	    <td><%= @recommend.recommend_shop_name %></td>
+   	  </tr>
+   	  <tr>
+   	    <th>オススメ理由</th>
+   	    <td><%= @recommend.recommend_shop_profile %></td>
+   	  </tr>
+        <th>駅</th>
+        <td><%= @recommend.station.station_name %></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td><%= @recommend.recommend_shop_address %></td>
+      </tr>
+   	  <tr>
+   	    <th>ジャンル</th>
+   	    <td><%= @recommend.genre.genre_name %></td>
+   	  </tr>
+      <tr>
+        <th>ホームページ</th>
+        <td><%= @recommend.recommend_shop_homepage %>
+    </table>
+   <%= link_to "編集する", edit_recommend_path(@recommend.id),data: { "turbolinks"=> false } %>
+   <%= link_to "削除", recommend_path(@recommend), method: :delete %>
+  </div>
+</div>

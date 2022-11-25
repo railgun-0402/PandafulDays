@@ -1,0 +1,45 @@
+<div class ="container">
+  <div class ="row">
+    <div class ="col-md-12">
+      <p class ="content1" >
+        <h2>駅一覧・追加</h2>
+      </p>
+        <%= form_with(model: @station_new, url:admin_stations_path, local: true) do |form| %>
+          <%= form.label :駅名 %>
+          <%= form.text_field :station_name %>
+          <%= form.radio_button :station_status, true %>
+          <%= form.label :station_status, "有効", {value: :true, style:"diplay: inline-block"} %>
+          <%= form.radio_button :station_status, :false %>
+          <%= form.label :station_status, "無効", {value: :false, style: "display: inline-block;"} %>
+          <%= form.submit :追加,class: "btn btn-primary" %>
+        <% end %>
+
+      <table class ='table table-striped'>
+        <p class ="content2" >
+          <thead>
+            <tr>
+              <th>駅</th>
+              <th>ステータス</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @stations.each do |station| %>
+            <tr>
+              <td><%= station.station_name %></td>
+              <td>
+                <% if station.station_status %>
+                 有効
+                <% else %>
+                 無効
+              <% end %>
+              </td>
+              <td><%= link_to "編集する", edit_admin_station_path(station.id), class: "btn btn-primary"%></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </p>
+      </table>
+    </div>
+  </div>
+</div>

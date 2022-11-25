@@ -1,0 +1,75 @@
+<div class ="container">
+  <div class ="row">
+    <h2><%= @user.name %>さんの会員情報詳細</h2><br>
+
+  </div>
+
+  <div class ="row">
+    <div class ="col-md-3 d-flex align-items-center" style="height: 300px">
+      <div class ="user_image">
+        <%= attachment_image_tag @user, :image,size: "150x150", fallback: "download.png" %>
+      </div>
+        <% unless current_user == @user %>
+          <% if current_user.following?(@user) %>
+            <%= form_for(current_user.relationships.find_by(follow_id: @user.id), html: { method: :delete }) do |f| %>
+              <%= hidden_field_tag :follow_id, @user.id %>
+              <%= f.submit 'Unfollow', class: 'btn btn-danger btn-block' %>
+           <% end %>
+          <% else %>
+            <%= form_for(current_user.relationships.build) do |f| %>
+              <%= hidden_field_tag :follow_id, @user.id %>
+              <%= f.submit 'Follow', class: 'btn btn-primary btn-block' %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% @user.followers.each do |user| %>
+          <%= user.followers %>
+        <% end %>
+    </div>
+    <div class ="col-md-9 d-flex align-items-center">
+      <table class="table table-borderless">
+   	   <tr style="border:none;">
+   	    <th>名前</th>
+   	    <td><%= @user.name %></td>
+   	  </tr>
+      <% if user = current_user %>
+   	  <tr>
+   	    <th th scope="col" class="text-nowrap">メールアドレス</th>
+   	    <td><%= @user.email %></td>
+    	</tr>
+      <% end %>
+      <tr>
+        <th th scope="col" class="text-nowrap">自己紹介文</th>
+        <td><%= @user.profile %></td>
+      </tr>
+      <th>
+        <% if @user.id == current_user.id %>
+        <div class="btn-gradient-radius">
+          <%= link_to "編集する", edit_user_path(@user.id),data: { "turbolinks"=> false } %>
+        </div>
+      </th>
+         <% end %>
+    </table>
+  </div>
+
+  </div>
+  <div class ="row justify-content-center">
+    <div class ="col-md-7">
+    <table class ='table'>
+      <div>My Shop一覧</div>
+      <% @user.favorites.each do |favorite| %>
+       <tr>
+         <th><%= link_to favorite.shop.shop_name, shop_path(favorite.shop.id) %></th>
+         <td><%= favorite.shop.genre.genre_name %></td>
+         <td><%= favorite.shop.station.station_name %></td>
+       </tr>
+       <% end %>
+    </table>
+  </div>
+  </div>
+</div>
+
+  <%= link_to '',edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+  <% else %>
+
+

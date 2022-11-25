@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<h5>本当に退会しますか？</h5>
+			<br>
+			<p>
+				退会すると、会員登録情報や<br>
+				コメント機能等が利用できなくなります。<br>
+				退会する場合は、「退会する」をクリックしてください。
+			</p>
+			<br>
+			<div>
+				<%= link_to '退会しない', user_path(current_user.id), calss: "btn btn-info" %>
+			</div>
+			<div>
+				<%= link_to '退会する', hide_path(current_user.id), class: "btn btn-danger", method: :delete %>
+			</div>
+		</div>
+	</div>
+</div>

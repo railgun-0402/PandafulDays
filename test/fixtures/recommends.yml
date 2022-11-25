@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  recommend_shop_name: MyString
+  recommend_shop_profile: MyText
+  recommend_shop_address: MyString
+  recommend_shop_homepage: MyText
+  recommend_image_id: MyString
+
+two:
+  user_id: 1
+  recommend_shop_name: MyString
+  recommend_shop_profile: MyText
+  recommend_shop_address: MyString
+  recommend_shop_homepage: MyText
+  recommend_image_id: MyString

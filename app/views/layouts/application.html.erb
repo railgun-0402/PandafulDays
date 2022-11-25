@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PandafulDays</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  </head>
+
+  <body>
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <div class="row">
+            <a class="navbar-brand" href="/">
+              <div class="text_font">
+              <h1>PandafulDays</h1></div></a>
+            <ul class="navbar-nav m-auto">
+             <% if admin_signed_in? %>
+              <li class="nav-item"><%= link_to '店舗一覧', admin_shops_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to 'User一覧', admin_users_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to 'ジャンル一覧', admin_genres_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to '駅一覧', admin_stations_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
+             <% elsif user_signed_in? %>
+              <li class="nav-item"><%= link_to 'PandafulDaysとは', home_about_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to 'マイページ', user_path(current_user), class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to '検索する', shop_search_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to 'ログアウト',  destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+             <% else %>
+              <li class="nav-item"><%= link_to 'PandafulDaysとは', home_about_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to '検索する', shop_search_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to '新規登録', new_user_registration_path, class: 'nav-link' %></li>
+              <li class="list-items"><%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %></li>
+             <% end %>
+           </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  genre_id: 1
+  station_id: 1
+  shop_name: MyString
+  shop_profile: MyText
+  shop_address: MyString
+  shop_time: 2020-07-11 16:59:17
+  shop_homepage: MyText
+  shop_main: MyString
+  shop_quit: false
+
+two:
+  genre_id: 1
+  station_id: 1
+  shop_name: MyString
+  shop_profile: MyText
+  shop_address: MyString
+  shop_time: 2020-07-11 16:59:17
+  shop_homepage: MyText
+  shop_main: MyString
+  shop_quit: false

@@ -1,0 +1,149 @@
+<div class ="container pb-3">
+  <div class ="row">
+    <div class ="col-12">
+      <div class="my-3">
+  	    <h2><%= @shop.shop_name %></h2>
+      </div>
+  	  <%= attachment_image_tag @shop, :main, size: "200x200", format: "jpeg" %>
+  	  <% @shop.shop_images.each do |image| %>
+  	    <%= attachment_image_tag image, :image, size: "200x200", format: "jpeg" %>
+  	  <% end %>
+      <% if user_signed_in? %>
+      <% if @shop.favorited_by?(current_user) %>
+          <div>
+            <%= link_to shop_favorites_path(@shop), method: :delete do %>
+            <div class="fa fa-heart" aria-hidden="true" style="color: red;"></div>
+              <%= @shop.favorites.count %> My SHop
+            <% end %>
+          </div>
+      <% else %>
+          <div>
+            <%= link_to shop_favorites_path(@shop), method: :post do %>
+              <div class="fa fa-heart-o" aria-hidden="true"></div>
+                <%= @shop.favorites.count %> My SHop
+            <% end %>
+          </div>
+      <% end %>
+      <% end %>
+      <div class="table-responsive">
+      <table class ='table'>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">店名</th>
+   	      <td><%= @shop.shop_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">店紹介文</th>
+   	      <td><%= @shop.shop_profile %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">ジャンル</th>
+   	      <td><%= @shop.genre.genre_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">駅</th>
+   	      <td><%= @shop.station.station_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">住所</th>
+   	      <td><%= @shop.shop_address %>
+            <div id="map">
+　          </div>
+          </td>
+        </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">営業時間</th>
+   	      <td><%= @shop.shop_time.strftime('%H:%M') %>~<%= @shop.finish_time.strftime('%H:%M') %></td>
+   	    </tr>
+        <tr>
+          <th scope="col" class="text-nowrap">休日</th>
+          <td><%= @shop.holiday %></td>
+        </tr>
+   	    <tr>
+   	      <th scope="col" class="text-nowrap">ホームページ</th>
+   	      <td><%= link_to @shop.shop_homepage, @shop.shop_homepage %></td>
+   	    </tr>
+      </table>
+    </div>
+        <h2>コメント</h2>
+        <% @shop.shop_comments.each do |shop_comment| %>
+            <div class="comment-body bb">
+              <div class="comment-avatar">
+                <div class="avatar">
+                  <%= attachment_image_tag shop_comment.user,:image, :fill,40, 0,fallback: "download.png",size:'40x40' %>
+                </div>
+              </div>
+              <div class="comment-text">
+                <div class="comment-author clearfix">
+                  <% if user_signed_in? %>
+                    <%= link_to shop_comment.user.name,user_path(shop_comment.user.id) %>
+                  <% else %>
+                    <% shop_comment.user.name %>
+                  <% end %>
+                  <span class="comment-meta">
+                    <span class="comment-date"><%= shop_comment.created_at.strftime('%Y/%m/%d') %>
+                  </span>
+                </span>
+                <div id="star-rate-<%= shop_comment.id %>"></div>
+                  <script>
+                  $('#star-rate-<%= shop_comment.id %>').raty({
+                  size: 36,
+                  starOff:  '<%= asset_path('star-off.png') %>',
+                  starOn : '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  half: true,
+                  readOnly: true,
+                  score: <%= shop_comment.score %>,
+                  });
+                  </script>
+                <div class="comment-entry"><%= shop_comment.comment %></div>
+                <% if shop_comment.user == current_user %>
+                  <%= link_to "削除", shop_shop_comment_path(shop_comment.shop, shop_comment), method: :delete %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% if user_signed_in? %>
+   　　　<%= form_for [@shop, @shop_comment] do |f| %>
+     　　  <div class="form-group row" id="star">
+       　    <%= f.label :score,'評価 ', class:'col-md-3 col-form-label' %>
+             <%= f.hidden_field :score, id: :review_star %>
+          </div>
+          <script>
+            $('#star').raty({
+            size     : 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            scoreName: 'shop_comment[score]',
+            half: true
+            });
+          </script>
+          <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+          <%= f.submit "評価する", class: "btn btn-primary mt-20 pull-right" %>
+        <% end %>
+      <% else %>
+        <a>会員登録して評価・コメントしよう</a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+#map{
+  height: 250px; width: 300px;
+}
+</style>
+
+<script>
+  let mapInstance //この変数はmap.js.erbでも使うのでタイプミスに注意
+
+  function initMap(){
+    mapInstance = new google.maps.Map(document.getElementById('map'), {
+    center: {lat:<%= @shop.latitude %>, lng:<%= @shop.longitude %>},
+    zoom: 15
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC30kzKCnQ8odDeG-M8ho3u14N5p-aXbXQ&callback=initMap" async defer></script>
+

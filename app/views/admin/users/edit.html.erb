@@ -1,0 +1,48 @@
+<div class ="container">
+  <div class ="row m-3">
+    <p class ="content1" >
+      <h2><%= @user.name %>さんのUser情報編集</h2><br>
+    </p>
+  </div>
+  <div class ="row m-3">
+    <div class ="col-md-3">
+      <%= attachment_image_tag @user, :image,size: "250x250", fallback: "download.png" %>
+    </div>
+    <div class ="col-md-9">
+      <table class ='table'>
+        <tr>
+   	      <th>UserID</th>
+   	      <td><%= @user.id %></td>
+        </tr>
+          <%= form_with(model:@user, url:admin_user_path,local:true) do |form| %>
+        <tr>
+          <th><%= form.label :User画像 %></th>
+          <td><%= form.attachment_field :image %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :名前 %></th>
+          <td><%= form.text_field :name%></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :自己紹介文 %></th>
+          <td><%= form.text_area :profile,:size=>"50x10" %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :Userステータス %></th>
+          <td>
+            <%= form.radio_button :quit, :true %>
+            <%= form.label :quit, "有効", {value: :true, style: "display: inline-block;"} %>
+            <%= form.radio_button :quit, :false %>
+            <%= form.label :quit, "無効", {value: :false, style: "display: inline-block;"} %>
+          </td>
+        </tr>
+          <th><%= form.submit :変更を保存する,class: "btn btn-primary"  %></th>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

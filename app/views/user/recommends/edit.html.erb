@@ -1,0 +1,41 @@
+<div class ="container my-md-4">
+  <div class ="row">
+    <div class ="col-md-3">
+      <%= @recommend.recommend_shop_name %>の店舗編集
+      <%= form_with(model:@recommend, url:recommend_path) do |form| %>
+        <div class="my-md-4"><%= attachment_image_tag @recommend, :recommend_image, size: "200x200", format: "jpeg"  %></div>
+    </div>
+    <div class ="col-md-9">
+      <table class ='table'>
+   	    <tr>
+   	      <th><%= form.label :店名 %></th>
+   	      <td><%= form.text_field :recommend_shop_name %></td>
+   	    </tr>
+   	    <tr>
+   	      <th><%= form.label :オススメ理由 %></th>
+   	      <td><%= form.text_area :recommend_shop_profile %></td>
+   	    </tr>
+   	    <tr>
+   	      <th><%= form.label :ジャンル %></th>
+   	      <td><%= form.collection_select(:genre_id,Genre.all, :id, :genre_name) %></td>
+   	    </tr>
+   	    <tr>
+   	      <th><%= form.label :駅 %></th>
+   	      <td><%= form.collection_select(:station_id,Station.all, :id, :station_name) %></td>
+   	    </tr>
+   	    <tr>
+   	      <th><%= form.label :住所 %></th>
+   	      <td><%= form.text_field :recommend_shop_address %></td>
+   	    </tr>
+   	    <tr>
+   	      <th><%= form.label :ホームページ %></th>
+   	      <td><%= form.text_field :recommend_shop_homepage %></td>
+   	    </tr>
+	      <tr>
+	        <th><%= form.submit :編集する%></th>
+	      </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

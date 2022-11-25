@@ -1,0 +1,66 @@
+<div class="about-container">
+  <div class="row">
+    <div class="message">
+  	  <h2>さぁ今日はどんなパンを</h2><br>
+  	  <h2>味わいましょうか？</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="my-5">
+        <div class="circle">
+          <%= image_tag 'icon_000411_64.png',size: "70x70" %>
+        </div>
+        <h2>詳細な検索機能</h2>
+        <div>駅、ジャンル、店名と自分好みの</div>
+        <div>条件で検索可能！</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="my-5">
+        <div class="circle2">
+          <%= image_tag 'icon_140221_64.png',size: "70x70" %>
+        </div>
+        <h2>Myshop機能</h2>
+        <div>自分で行きたいお店、お気に入りの</div>
+        <div>お店をMyshopに登録可能</div>
+        <div>また他のUserの店舗も確認できるので</div>
+        <div>行きたいお店を増やそう</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="my-5">
+        <div class="circle3">
+          <%= image_tag 'icon_114301_64.png',size: "70x70" %>
+        </div>
+        <h2>フォロー機能</h2>
+        <div>他のユーザーをフォローすることができます</div>
+        <div>自分と好みが似ているユーザーを見つけたら</div>
+        <div>フォローして次行く店の参考にしてみては？</div>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+      <div class="my-5">
+        <div><h4>Pandafuldaysは山手線沿いのパン屋を検索できるサイトです</h4></div>
+        <div><h4>是非あなたが今食べたいパン、明日食べるパンを探してください</h4></div>
+        <div><h4>しかし私達の知らない素敵なパンはきっとたくさんあります</h4></div>
+        <div>
+          <% if user_signed_in? %>
+            <%= link_to "もしよろしければあなたのお勧めのパン屋を教えてください！",new_recommend_path %>
+          <% else %>
+            <%= link_to "会員登録してあなたのお勧めのパン屋を教えてください！",new_user_registration_path %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

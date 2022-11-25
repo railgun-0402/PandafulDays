@@ -1,0 +1,15 @@
+<div class ="container">
+  <div class ="row m-3">
+    <h2>駅編集</h2><br>
+  </div>
+  <div class ="row m-3">
+    <%= form_with( model: @station, url: admin_station_path, local: true) do |form| %>
+      <%= form.text_field :station_name %>
+      <%= form.radio_button :station_status, :true %>
+      <%= form.label :station_status, "有効", {value: :true, style: "display: inline-block;"} %>
+      <%= form.radio_button :station_status, :false %>
+      <%= form.label :station_status, "無効", {value: :false, style: "display: inline-block;"} %>
+      <%= form.submit :変更を保存する,class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

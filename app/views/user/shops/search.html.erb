@@ -1,0 +1,91 @@
+<div class ="container">
+  <div class ="row">
+    <div class="slider col-md-12">
+      <div><%= image_tag 'about.jpg',class: "slide" %></div>
+      <div><%= image_tag 'header.jpg',class: "slide" %></div>
+      <div><%= image_tag 'about2.jpg',class: "slide" %></div>
+    </div>
+  </div>
+</div>
+<div class ="container pb-3 ">
+  <div class ="search bg-dark " style="border: 1px solid #C0C0C0; padding: 10px; margin-top: 40px; height: auto;">
+    <div class ="row justify-content-center">
+      <div class ="my-sm-0">　
+        <h2><div class =text-light>条件で検索する</div></h2>
+      </div>
+    </div>
+    <div class ="row justify-content-center">
+  　  <div class ="my-sm-0">　
+        <%= form_with(url:shops_path,method:'get',local:true) do |form| %>
+          <%= form.text_field :name,:placeholder => "店名を入力", value:params[:shop_name] %>
+          <%= form.collection_select(:genre_id,Genre.all, :id, :genre_name,include_blank: "ジャンル") %>
+          <%= form.collection_select(:station_id,Station.all, :id, :station_name,include_blank: "駅") %>
+          <%= submit_tag "店を検索する", :name => nil %>
+        <% end %>
+      </div>
+    </div>
+    </div>
+  <div class ="row col-md-12">
+    <div class ="col-md-7">
+      <div class ="search" style="border: 3px solid #C0C0C0; padding: 10px; margin-top: 40px; height: auto; border-radius: 10px;">
+  　    <div class ="my-sm-0">
+          <div class="row align-items-center justify-content-center">　
+            <h2>人気ジャンルから検索</h2>
+          </div>
+        </div>　
+          <div class="row align-items-center justify-content-center">
+            <div class="col-3 align-self-center text-center">
+              <%= image_tag 'food_melonpan.png',size: "70x70" %><br>
+              <%= link_to "メロンパン",shops_path(genre_id: 1) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'food_francepan.png',size: "70x70" %><br>
+              <%= link_to "フランスパン",shops_path(genre_id: 2) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'food_currypan.png',size: "70x70" %><br>
+              <%= link_to "カレーパン",shops_path(genre_id: 3) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'food_bread.png',size: "70x70" %><br>
+              <%= link_to "食パン",shops_path(genre_id: 4) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'food_bagel.png',size: "70x70" %><br>
+              <%= link_to "ベーグル",shops_path(genre_id: 5) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'sandwitch.png',size: "70x70" %><br>
+              <%= link_to "サンドイッチ",shops_path(genre_id: 6) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'food_croissan.png',size: "70x70" %><br>
+              <%= link_to "クロワッサン",shops_path(genre_id: 7) %>
+            </div>
+            <div class="col-3 text-center">
+              <%= image_tag 'food_hamburger.png',size: "70x70" %><br>
+              <%= link_to "ハンバーガー",shops_path(genre_id: 8) %>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class ="col-md-5">
+      <div class ="search" style="border: 3px solid #C0C0C0; padding: 10px; margin-top: 40px; height: auto; border-radius: 10px;">
+        <div class ="row justify-content-center">
+          <div class ="my-sm-0">
+            <h2>駅から検索</h2>
+          </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+          <div class="col-5 align-self-center">
+            <% @stations.each do |station| %>
+          <div class="badge badge-dark">
+            <%= link_to station.station_name, shops_path(station_id: station.id),class:"text-light" %>
+          </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
